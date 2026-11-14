@@ -1,0 +1,56 @@
+# ==========================================
+# Large Datasets, Embeddings & Model Artifacts
+# ==========================================
+*.joblib
+*.pkl
+*.pt
+*.pth
+*.bin
+*.h5
+*.parquet
+*.zip
+*.tar.gz
+
+# Ignore all NumPy arrays EXCEPT tracked evaluation outputs
+*.npy
+!results/baseline/cluster_sizes.npy
+!results/refined/cluster_sizes_t2.npy
+!results/kmeans_baseline/cluster_sizes_kmeans_k2000.npy
+
+# Ignore raw/staged CSV dumps EXCEPT tracked evaluation & interpretation files
+sample.csv
+comments_only.csv
+comments_preprocessed.csv
+embeddings_index.csv
+rep_translations_*.csv
+step*.csv
+balanced_dataset_full.csv
+
+# Explicitly keep tracked CSVs
+!results/**/*.csv
+!results/*.csv
+!interpretation/*.csv
+
+# ==========================================
+# Jupyter Notebook & Python Environments
+# ==========================================
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# ==========================================
+# OS & IDE Files
+# ==========================================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
