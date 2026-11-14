@@ -9,7 +9,7 @@
 An end-to-end, scalable unsupervised NLP framework for discovering latent topics across **2,008,208 Bangla social media comments**. While density-based clustering (UMAP + HDBSCAN) discovers high-purity semantic cores, it leaves **54.68%** of noisy, code-mixed social media comments unclustered. To overcome this limitation without sacrificing transparency, this project introduces:
 
 1. **Cross-Lingual Translation-Invariant Clustering (CTIC):** An iterative centroid-refinement pipeline that reassigns noise points using a weighted combination of source-language (Bangla) and translated-target (English) cluster centroid similarities—reducing noise to **4.00%** (**96.00%** data coverage).
-2. **Translation-Invariance Score (TIS):** A cross-lingual stability metric measuring cosine similarity between Bangla and translated-English centroids ($\text{TIS}_k = \cos(\mu_k^{\text{bn}}, \mu_k^{\text{en}})$) to quantify semantic consistency in label-free multilingual settings.
+2. **Translation-Invariance Score (TIS):** A cross-lingual stability metric measuring cosine similarity between Bangla and translated-English centroids ( $\mathrm{TIS}_k = \cos(\mu_k^{\mathrm{bn}}, \mu_k^{\mathrm{en}})$ ) to quantify semantic consistency in label-free multilingual settings.s.
 
 ---
 
@@ -24,8 +24,6 @@ An end-to-end, scalable unsupervised NLP framework for discovering latent topics
 ## Dataset & Precomputed Artifacts
 
 Due to GitHub's 100 MB file-size limit, the large-scale raw corpora, staged preprocessing files, 768-D LaBSE embeddings, and fitted UMAP models are hosted externally on Google Drive:
-
-* **Google Drive Archive:** [Download Dataset & Embeddings (Google Drive)](https://drive.google.com/drive/folders/1g4I1TVnTETpfMVUEtLMwskhCgsA4gOaI?usp=sharing)
 
 ### Dataset
 
@@ -63,8 +61,8 @@ Due to GitHub's 100 MB file-size limit, the dataset is hosted externally on Goog
 * **Multilingual Representation:** Encodes cleaned comments into 768-dimensional L2-normalized vectors $z_i = f_{\text{LaBSE}}(x_i^n) \in \mathbb{R}^{768}$ using memory-mapped batch inference.
 
 ### 2. Manifold Reduction & Initial Density Clustering
-* **UMAP Projection:** Fitted on a stratified sample of `250,000` embeddings using cosine distance and applied across all `2,008,208` points ($g_{\text{UMAP}}: \mathbb{R}^{768} \rightarrow \mathbb{R}^{10}$).
-* **HDBSCAN Clustering:** Identifies `4,206` variable-density clusters ($\text{min\_cluster\_size} = 50$) while isolating `1,098,208` outlier points (`54.68%`) as noise ($l_i = -1$).
+- **UMAP Projection:** Fitted on a stratified sample of `250,000` embeddings using cosine distance and applied across all `2,008,208` points ( $g_{\mathrm{UMAP}}: \mathbb{R}^{768} \rightarrow \mathbb{R}^{10}$ ).
+- **HDBSCAN Clustering:** Identifies `4,206` variable-density clusters (`min_cluster_size = 50`) while isolating `1,098,208` outlier points (`54.68%`) as noise ($l_i = -1$).
 
 ### 3. Cross-Lingual Refinement (CTIC)
 For each cluster $C_k$:
@@ -76,7 +74,8 @@ For each cluster $C_k$:
 
 ### 4. Translation-Invariance Score (TIS)
 Cross-lingual semantic stability for cluster $k$ is evaluated in the original 768-D LaBSE space:
-$$\text{TIS}_k = \cos(\mu_k^{\text{bn}}, \mu_k^{\text{en}}), \qquad \overline{\text{TIS}} = \frac{1}{K}\sum_{k=1}^{K} \text{TIS}_k$$
+
+$$\mathrm{TIS}_k = \cos(\mu_k^{\mathrm{bn}}, \mu_k^{\mathrm{en}}), \qquad \overline{\mathrm{TIS}} = \frac{1}{K}\sum_{k=1}^{K} \mathrm{TIS}_k$$
 
 ---
 
